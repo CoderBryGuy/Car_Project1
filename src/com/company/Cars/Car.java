@@ -88,6 +88,7 @@ public class Car {
     }
 
     public void setYear(int year) {
+        if(year > 1900 || year < 2016)
         this.year = year;
     }
 
@@ -148,6 +149,38 @@ public class Car {
             highestBid.setBidPrice(b.getBidPrice());
     }
     public boolean isAttractive(){
-     return
+        if(this.isAirbags() &&
+                this.getKm() < 20000&&
+                !this.isLeasingOrRental()&&
+                this.getYear() > 2012)
+            return true;
+        else return false;
     }
-}
+
+    public boolean isFitForFamily(int numbOfKids){
+        if(this.getSeats() >= numbOfKids +2)//2 parents
+            return true;
+        else return false;
+    }
+
+    public boolean overUsedCar(){
+        int makeYear = this.getYear();
+        int carAge = 2016 - makeYear;
+
+        if(carAge * 12000 > this.getKm())
+            return false;
+        else return true;
+    }
+//object method overrides
+    @Override
+    public String toString(){
+        return "Manufacture: " + this.getManufacturer()
+                + "\n Year: " + this.getYear()
+                + "\n Owner: " + this.owner.getName()
+                + "\n Tel:" + this.owner.getTelNumber()
+                + "\n Higest Bid " + this.getHighestBid()
+                ;
+    }
+
+
+}//end Car class
